@@ -1,2 +1,19 @@
-<h1>TicTacToe#home</h1>
-<p>Find me in app/views/tic_tac_toe/home.html.erb</p>
+Index file
+<form action="new_game" method="GET">
+
+  <select name="game_type">
+    <% for game_type in @game_types %>
+      <option value="<%= game_type %>"><%= game_type %></option>
+  <% end %>
+  </select>
+
+  <select name="board_size">
+    <% for board_size in @board_sizes %>
+      <option value="<%= board_size %>"><%= board_size %></option>
+  <% end %>
+  </select>
+
+  <input type="submit" value="Submit">
+
+</form>
+
