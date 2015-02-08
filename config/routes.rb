@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'tic_tac_toe/home'
+
+  get 'tic_tac_toe/play_turn'
+
+  get 'tic_tac_toe/reset'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
