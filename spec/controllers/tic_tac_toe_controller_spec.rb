@@ -1,9 +1,11 @@
-$LOAD_PATH.unshift(File.dirname('../ttt_ruby_1/lib'))
 require 'rails_helper'
-require 'lib/game'
+require 'tictactoe'
+require 'ostruct'
 
 RSpec.describe TicTacToeController, :type => :controller do
-  let(:game) { double ('game') }
+  let(:game) { TTT::Game.build_game(TTT::AsyncInterface.new, TTT::Game::HVH, 3) }
+  let(:board_param) { game.board_positions.to_json }
+
   describe 'home' do
     it 'responds successfully with 200 status code' do
       get(:home)
@@ -27,38 +29,31 @@ RSpec.describe TicTacToeController, :type => :controller do
   end
 
   describe 'new_game' do
-    it 'stores new game in session' do
-      get(:new_game, {'game_type' => 'Human Vs Human', 'board_size' => '3'} )
-      expect(session[:game]).to be_kind_of(TTT::Game)
-    end
+    it 'redirects to play_move with board and game type' do
+      get(:new_game, {'game_type' => TTT::Game::HVH, 'board_size' => '3'} )
 
-    it 'redirects to play_move' do
-      get(:new_game, {'game_type' => 'Human Vs Human', 'board_size' => '3'} )
-      expect(response).to redirect_to('play_move')
+      expect(response).to redirect_to(play_move_path(
+        'game_type' => TTT::Game::HVH,
+        'board' => board_param ))
     end
   end
 
   describe 'play_move' do
     it 'renders play_move template' do
-      session[:game] = game
-      expect(game).to receive(:play_turn)
-      allow(game).to receive(:game_over?)
-      get(:play_move)
+      get(:play_move, {'board' => board_param, 'game_type' => TTT::Game::HVH })
       expect(response).to render_template('play_move')
     end
 
-    it 'calls play_turn on game' do
-      session[:game] = game
-      expect(game).to receive(:play_turn)
-      allow(game).to receive(:game_over?)
-      get(:play_move)
+    it 'builds game from parameters' do
+      get(:play_move, {'board' => board_param, 'game_type' => TTT::Game::HVH })
+      expect(assigns(:game_presenter)).to_not be(nil)
     end
 
-    it 'calls play_turn with position parameter' do
-      session[:game] = game
-      allow(game).to receive(:game_over?)
-      expect(game).to receive(:play_turn).with(1)
-      get(:play_move, {:position => '1'})
+    it 'builds url for next turn' do
+      get(:play_move, {'board' => board_param, 'game_type' => TTT::Game::HVH })
+      expect(assigns(:next_turn_url)).to eq(play_move_path(
+        'game_type' => TTT::Game::HVH,
+        'board' => board_param ))
     end
   end
 end

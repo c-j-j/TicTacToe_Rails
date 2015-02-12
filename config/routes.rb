@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  get 'tic_tac_toe/home'
-  get 'tic_tac_toe/new_game'
-  get 'tic_tac_toe/play_move'
-  get 'tic_tac_toe/reset'
+  #get 'tic_tac_toe/home'
+  root 'tic_tac_toe#home'
+  get 'new_game' => 'tic_tac_toe#new_game', as: :new_game
+  get 'play_move' => 'tic_tac_toe#play_move', as: :play_move
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

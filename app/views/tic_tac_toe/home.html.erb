@@ -1,19 +1,45 @@
-Index file
-<form action="new_game" method="GET">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 col-md-offset-4">
+      <h1>Tic Tac Toe</h1>
+      <form action="new_game" method="GET">
 
-  <select name="game_type">
-    <% for game_type in @game_types %>
-      <option value="<%= game_type %>"><%= game_type %></option>
-  <% end %>
-  </select>
+        <div class="form-group">
+          <label for="GameType">Select Game Type</label>
 
-  <select name="board_size">
-    <% for board_size in @board_sizes %>
-      <option value="<%= board_size %>"><%= board_size %></option>
-  <% end %>
-  </select>
+          <select name="game_type" id="GameType">
+            <% for game_type in @game_types %>
+              <option value="<%= game_type %>"><%= game_type %></option>
+          <% end %>
+          </select>
+        </div>
 
-  <input type="submit" value="Submit">
+        <div class="form-group">
+          <label for="BoardSize">Select Board Size (number of rows)</label>
+          <select name="board_size">
+            <% for board_size in @board_sizes %>
+              <option value="<%= board_size %>"><%= board_size %></option>
+          <% end %>
+          </select>
+        </div>
 
-</form>
+        <input type="submit" class="btn btn-default" value="Play New Game">
+
+      </form>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+
 
