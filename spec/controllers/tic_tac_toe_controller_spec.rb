@@ -55,5 +55,11 @@ RSpec.describe TicTacToeController, :type => :controller do
         'game_type' => TTT::Game::HVH,
         'board' => board_param ))
     end
+
+    it 'sets error message when invalid move given' do
+      get(:play_move, {'board' => board_param, 'game_type' => TTT::Game::HVH,
+      'position' => '-1'})
+      expect(assigns(:error_message)).to eq(TTT::UI::INVALID_MOVE_MESSAGE)
+    end
   end
 end
