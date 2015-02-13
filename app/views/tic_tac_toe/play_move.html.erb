@@ -2,58 +2,33 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<% if @game_presenter.computer_has_next_turn %>
+<% if @game_presenter.computer_has_next_turn? %>
   <meta http-equiv="refresh" content="0;URL='<%= @next_turn_url %>'" />
 <% end %>
 <title>TicTacToe</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="public/css/main.css">
-
-<style>
-
-#my-div {
-  position: relative;
-  background-color: #fff;
-  display: block;
-  border: 1px solid black;
-  float: left;
-  width: <%= @game_presenter.cell_size %>;
-  padding-bottom: <%= @game_presenter.cell_size %>;
-}
-
-a.fill-div {
-  position: absolute;
-  text-align: center;
-  padding: 0;
-  display: block;
-  font-size: 100px;
-  height: 100%;
-  width: 100%;
-  padding-bottom: <%= @game_presenter.cell_size %>;
-  text-decoration: none;
-}
-
-p.error {
-  color: red;
-}
-
-</style>
 </head>
 <body>
 <div class="container">
   <div class="row">
     <div class="col-md-5 col-md-offset-4">
-      <h1>Tic Tac Toe</h1>
+      <h1><strong>Status:</strong> <%= @game_presenter.status %></h1>
       <% unless @game_presenter.board.nil? %>
         <% (0...@game_presenter.board.number_of_positions).each do |index| %>
-        <div id="my-div">
-        <a href="<%= @next_turn_url %>&position=<%= index %>" class="fill-div"><%= @game_presenter.board.get_mark_at_position(index) %></a>
-      </div>
-    <% end %>
-    <% end %>
-      <h4>Status: <%= @game_presenter.status %></h4>
-      <p class="error"><%= @error_message %>
-    <h3><a href="/">Click Here to set up a new game</a></h3>
+          <div class="cell"
+            style="width: <%= @game_presenter.cell_size %>; padding-bottom: <%= @game_presenter.cell_size %>;">
+            <a href="<%= @next_turn_url %>&position=<%= index %>">
+              <%= @game_presenter.board.get_mark_at_position(index) %>
+            </a>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% unless @error_message.nil? %>
+        <p class="error"><%= @error_message %></p>
+      <% end %>
+
+      <h3><a href="/">Click Here to set up a new game</a></h3>
     </div>
   </div>
 </div>
