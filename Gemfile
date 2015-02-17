@@ -32,7 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'tictactoe', :path => '/Users/chrisjordan/ruby_projects/ttt_ruby_1'
+gem 'tictactoe', :path => '/Users/chrisjordan/ruby_projects/tictactoe/tictactoe_game'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

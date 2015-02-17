@@ -3,8 +3,8 @@ require 'tictactoe'
 require 'ostruct'
 
 RSpec.describe TicTacToeController, :type => :controller do
-  let(:game) { TTT::Game.build_game(TTT::AsyncInterface.new, TTT::Game::HVH, 3) }
-  let(:board_param) { game.board_positions.to_json }
+  let(:board) { TTT::Board.new(3) }
+  let(:board_param) { TTT::Web::BoardWebPresenter.to_web_object(board) }
 
   describe 'home' do
     it 'responds successfully with 200 status code' do
@@ -40,17 +40,17 @@ RSpec.describe TicTacToeController, :type => :controller do
 
   describe 'play_move' do
     it 'renders play_move template' do
-      get(:play_move, {'board' => board_param, 'game_type' => TTT::Game::HVH })
+      get_play_move
       expect(response).to render_template('play_move')
     end
 
-    it 'builds game from parameters' do
-      get(:play_move, {'board' => board_param, 'game_type' => TTT::Game::HVH })
+    it 'plays game and assigns output to game_presenter' do
+      get_play_move
       expect(assigns(:game_presenter)).to_not be(nil)
     end
 
     it 'builds url for next turn' do
-      get(:play_move, {'board' => board_param, 'game_type' => TTT::Game::HVH })
+      get_play_move
       expect(assigns(:next_turn_url)).to eq(play_move_path(
         'game_type' => TTT::Game::HVH,
         'board' => board_param ))
@@ -59,7 +59,12 @@ RSpec.describe TicTacToeController, :type => :controller do
     it 'sets error message when invalid move given' do
       get(:play_move, {'board' => board_param, 'game_type' => TTT::Game::HVH,
       'position' => '-1'})
-      expect(assigns(:error_message)).to eq(TTT::UI::INVALID_MOVE_MESSAGE)
+      expect(assigns(:error_message)).to eq(TicTacToeController::INVALID_MOVE_MESSAGE)
     end
+
+    def get_play_move
+      get(:play_move, {'board' => board_param, 'game_type' => TTT::Game::HVH })
+    end
+
   end
 end
