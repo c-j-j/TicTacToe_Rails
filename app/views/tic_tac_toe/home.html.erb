@@ -16,7 +16,7 @@
           <label for="GameType">Select Game Type</label>
 
           <select name="game_type" id="GameType">
-            <% for game_type in @game_types %>
+            <% @game_types.each do |game_type|  %>
               <option value="<%= game_type %>"><%= game_type %></option>
           <% end %>
           </select>

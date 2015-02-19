@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<% if @game_presenter.computer_has_next_turn? %>
+<% if @computer_has_next_turn %>
   <meta http-equiv="refresh" content="0;URL='<%= @next_turn_url %>'" />
 <% end %>
 <title>TicTacToe</title>
