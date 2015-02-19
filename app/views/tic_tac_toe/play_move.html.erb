@@ -15,7 +15,7 @@
       <h1><strong>Status:</strong> <%= @game_presenter.status %></h1>
       <% unless @game_presenter.board.nil? %>
         <% (0...@game_presenter.board.number_of_positions).each do |index| %>
-          <div class="cell"
+          <div class="cell" id="<%="cell-#{index}"%>"
             style="width: <%= @game_presenter.cell_size %>; padding-bottom: <%= @game_presenter.cell_size %>;">
             <a href="<%= @next_turn_url %>&position=<%= index %>">
               <%= @game_presenter.board.get_mark_at_position(index) %>
@@ -28,7 +28,7 @@
         <p class="error"><%= @error_message %></p>
       <% end %>
 
-      <h3><a href="/">Click Here to set up a new game</a></h3>
+      <h3><a id="new_game_link" href="/">Click Here to set up a new game</a></h3>
     </div>
   </div>
 </div>
