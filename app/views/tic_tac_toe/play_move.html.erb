@@ -13,12 +13,12 @@
   <div class="row">
     <div class="col-md-5 col-md-offset-4">
       <h1><strong>Status:</strong> <%= @game_presenter.status %></h1>
-      <% unless @game_presenter.board.nil? %>
-        <% (0...@game_presenter.board.number_of_positions).each do |index| %>
+      <% unless @game_presenter.board_positions.nil? %>
+        <% @game_presenter.board_positions.each_with_index do |mark, index| %>
           <div class="cell" id="<%="cell-#{index}"%>"
             style="width: <%= @game_presenter.cell_size %>; padding-bottom: <%= @game_presenter.cell_size %>;">
             <a href="<%= @next_turn_url %>&position=<%= index %>">
-              <%= @game_presenter.board.get_mark_at_position(index) %>
+              <%= mark %>
             </a>
           </div>
         <% end %>

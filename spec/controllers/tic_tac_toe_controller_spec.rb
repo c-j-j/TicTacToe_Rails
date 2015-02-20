@@ -6,8 +6,7 @@ require 'ostruct'
 
 RSpec.describe TicTacToeController, :type => :controller do
   let(:game) { TicTacToe::StubGame.new }
-  let(:board) { TicTacToe::Board.new(3) }
-  let(:board_param) { TicTacToe::Web::BoardWebPresenter.to_web_object(board) }
+  let(:board_param) { TicTacToe::Web::BoardWebPresenter.to_web_object(game.presenter.board_positions) }
 
   describe 'home' do
     it 'responds successfully with 200 status code' do
