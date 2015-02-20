@@ -1,12 +1,11 @@
 require 'rails_helper'
 require 'tictactoe/board'
-require 'tictactoe/board_web_presenter'
 require 'tictactoe/stubs/stub_game'
 require 'ostruct'
 
 RSpec.describe TicTacToeController, :type => :controller do
   let(:game) { TicTacToe::StubGame.new }
-  let(:board_param) { TicTacToe::Web::BoardWebPresenter.to_web_object(game.presenter.board_positions) }
+  let(:board_param) { game.presenter.board_as_string }
 
   describe 'home' do
     it 'responds successfully with 200 status code' do

@@ -1,13 +1,12 @@
 require 'rails_helper'
 require 'tictactoe/game'
-require 'tictactoe/board_web_presenter'
 require 'tictactoe/stubs/stub_game'
 
 RSpec.describe 'play move page' do
 
   let(:game) { TicTacToe::StubGame.new }
   let(:board) { TicTacToe::Board.new(3) }
-  let(:board_param) { TicTacToe::Web::BoardWebPresenter.to_web_object(game.presenter.board_positions) }
+  let(:board_param) { game.presenter.board_as_string }
 
   it 'play move page prints out board with 9 cells' do
     go_to_play_move_page
