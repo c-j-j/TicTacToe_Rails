@@ -6,12 +6,9 @@
   <meta http-equiv="refresh" content="0;URL='<%= @next_turn_url %>'" />
 <% end %>
 <title>TicTacToe</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <div class="col-md-5 col-md-offset-4">
+<section>
       <h1><strong>Status:</strong> <%= @game_presenter.status %></h1>
       <% @game_presenter.board_as_array.each_with_index do |mark, index| %>
         <div class="cell" id="<%="cell-#{index}"%>"
@@ -27,9 +24,7 @@
       <% end %>
 
       <h3><a id="new_game_link" href="/">Click Here to set up a new game</a></h3>
-    </div>
-  </div>
-</div>
+</section>
 
 </body>
 </html>
